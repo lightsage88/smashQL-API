@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/cli": "^2.6.2",
-    "@prisma/client": "^2.6.2"
+    "@prisma/client": "^2.6.2",
+    "graphql-yoga": "^1.18.3",
+    "lodash": "^4.17.20"
   }
 }

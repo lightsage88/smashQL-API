@@ -1,0 +1,41 @@
+type Query {
+  roster: [fighter!]!
+}
+
+type Mutation {
+  addFighter(name: String!, description: String, image: String, franchiseId: Int): fighter!
+  updateFighter(id: ID!, name: String, description: String, image: String, franchiseId: Int): fighter!
+}
+
+type fighter {
+  id: ID!
+  name: String!
+  description: String!
+  image: String
+  franchise: franchise
+}
+
+type franchise {
+  id: ID!
+  name: String!
+  image: String
+  company: company
+  fighters: [fighter!]
+  game: [game!]
+}
+
+type game {
+  id: ID!
+  name: String!
+  franchise: franchise
+  releaseYear: Int
+
+}
+
+type company {
+  id: ID!
+  name: String!
+  description: String
+  foundingYear: Int
+  franchises: [franchise!]
+}

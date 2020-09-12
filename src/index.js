@@ -1,4 +1,9 @@
 const { PrismaClient } = require("@prisma/client")
+const { GraphQLServer } = require("graphql-yoga")
+const Query = require("./resolvers/Query")
+const Mutation = require("./resolvers/Mutation")
+const fighter = require("./resolvers/Fighter")
+const franchise = require("./resolvers/Franchise")
 
 const prisma = new PrismaClient()
 
@@ -104,10 +109,62 @@ const main = async () => {
   console.log(result)
 }
 
-main()
-  .catch(e => {
-    throw e
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
+// /////GraphQL Schema
+
+// ////TypeDefs
+// const typeDefs = `
+//   type Query {
+//     info: String!
+//     roster: [fighter!]!
+//   }
+
+//   type fighter {
+//     id: ID!
+//     description: String!
+//     name: String!
+//   }
+// `
+
+
+// /// MUTATIONs
+
+
+// //Resolvers
+// const resolvers = {
+//   Query: {
+//     info: () => `Solpocho`,
+//     roster: () => ['Mario']
+//   }
+
+
+// }
+
+
+// main()
+//   .catch(e => {
+//     throw e
+//   })
+//   .finally(async () => {
+//     await prisma.$disconnect()
+//   })
+
+const resolvers = {
+  Query,
+  Mutation,
+  fighter,
+  franchise
+}
+
+
+const server = new GraphQLServer({
+  typeDefs: './src/schema.graphql',
+  resolvers,
+  context: request => {
+    return {
+      ...request,
+      prisma
+    }
+  }
+})
+
+server.start(() => console.log(`Server is running on http://localhost:4000`))
