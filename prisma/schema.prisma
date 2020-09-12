@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model company {
+  id           Int         @default(autoincrement()) @id
+  name         String?
+  description  String?
+  foundingYear Int
+  franchise    franchise[]
+}
+
+model fighter {
+  id          Int       @default(autoincrement()) @id
+  name        String?
+  description String?
+  image       String?
+  franchiseId Int
+  franchise   franchise @relation(fields: [franchiseId], references: [id])
+
+  @@index([franchiseId], name: "franchiseId")
+}
+
+model franchise {
+  id        Int       @default(autoincrement()) @id
+  name      String?
+  image     String?
+  companyId Int
+  company   company   @relation(fields: [companyId], references: [id])
+  fighter   fighter[]
+  game      game[]
+
+  @@index([companyId], name: "companyId")
+}
+
+model game {
+  id          Int       @default(autoincrement()) @id
+  name        String?
+  franchiseId Int
+  releaseYear Int
+  franchise   franchise @relation(fields: [franchiseId], references: [id])
+
+  @@index([franchiseId], name: "franchiseId")
+}
