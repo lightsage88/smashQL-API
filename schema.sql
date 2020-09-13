@@ -21,8 +21,10 @@ CREATE TABLE Game (
   id          INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name        VARCHAR(255),
   franchiseId INTEGER NOT NULL,
+  image       TEXT,
   FOREIGN KEY (franchiseId) REFERENCES Franchise(id),
   releaseYear INTEGER NOT NULL
+  description TEXT
 );
 
 CREATE TABLE Company (

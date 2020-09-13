@@ -43,6 +43,8 @@ model game {
   name        String?
   franchiseId Int
   releaseYear Int
+  description String?
+  image       String?
   franchise   franchise @relation(fields: [franchiseId], references: [id])
 
   @@index([franchiseId], name: "franchiseId")

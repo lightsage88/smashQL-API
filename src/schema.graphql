@@ -1,11 +1,24 @@
 type Query {
   roster: [fighter!]!
+  companies: [company!]!
+  gameCollection: [game!]!
+  franchiseList: [franchise!]!
 }
 
 type Mutation {
   addFighter(name: String!, description: String, image: String, franchiseId: Int): fighter!
   updateFighter(id: ID!, name: String, description: String, image: String, franchiseId: Int): fighter!
+  deleteFighter(id: ID!): [fighter!]!
+  addGame(name: String!, franchiseId: Int, releaseYear: Int, description: String): game!
+  updateGame(id: ID!, name: String, franchiseId: Int, releaseYear: Int): game!
+  deleteGame(id: ID!): [game!]!
+  addFranchise(name: String!, image: String, companyId: Int, fighterIDs: [Int], gameIDs: [Int]): franchise!
+
+  updateFranchise(id: Int!, name: String, image: String, companyId: Int, fighterIDs: [Int], game: [Int]): franchise!
+  deleteFranchise(id:ID!): [franchise!]!
+  addCompany(name: String!, foundingYear: Int, description: String): company
 }
+
 
 type fighter {
   id: ID!
@@ -21,15 +34,16 @@ type franchise {
   image: String
   company: company
   fighters: [fighter!]
-  game: [game!]
+  games: [game!]
 }
 
 type game {
   id: ID!
   name: String!
   franchise: franchise
+  image: String
   releaseYear: Int
-
+  description: String
 }
 
 type company {

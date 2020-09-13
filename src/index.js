@@ -4,6 +4,7 @@ const Query = require("./resolvers/Query")
 const Mutation = require("./resolvers/Mutation")
 const fighter = require("./resolvers/Fighter")
 const franchise = require("./resolvers/Franchise")
+const company = require("./resolvers/Company")
 
 const prisma = new PrismaClient()
 
@@ -152,7 +153,14 @@ const resolvers = {
   Query,
   Mutation,
   fighter,
-  franchise
+  franchise,
+  company
+}
+
+
+
+const options = {
+  debug: true,
 }
 
 
@@ -167,4 +175,11 @@ const server = new GraphQLServer({
   }
 })
 
-server.start(() => console.log(`Server is running on http://localhost:4000`))
+server.start(options, ({ port }) =>
+  console.log(
+    `Server started, listening on port ${port} for incoming requests.`,
+  ),
+)
+
+
+// server.start( () => console.log(`Server is running on http://localhost:4000`))
