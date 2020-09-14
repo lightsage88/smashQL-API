@@ -3,7 +3,7 @@ CREATE TABLE Fighter (
   name      VARCHAR(255),
   description TEXT,
   image     TEXT,
-  franchiseId  INTEGER NOT NULL,
+  franchiseId  INTEGER,
   FOREIGN KEY (franchiseId) REFERENCES Franchise(id)
 );
 

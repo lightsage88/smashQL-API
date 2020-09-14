@@ -16,12 +16,12 @@ model company {
 }
 
 model fighter {
-  id          Int       @default(autoincrement()) @id
+  id          Int        @default(autoincrement()) @id
   name        String?
   description String?
   image       String?
-  franchiseId Int
-  franchise   franchise @relation(fields: [franchiseId], references: [id])
+  franchiseId Int?
+  franchise   franchise? @relation(fields: [franchiseId], references: [id])
 
   @@index([franchiseId], name: "franchiseId")
 }

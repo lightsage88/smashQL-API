@@ -6,7 +6,7 @@ function addFighter(parent, args, context, info) {
       name: args.name,
       description: args.description,
       image: args.image,
-      franchise: { connect: { id: args.franchiseId }}
+      franchise: { connect: { id: args.franchiseId || undefined }}
     }
   })
 
@@ -66,12 +66,11 @@ async function updateGame(parent, args, context, info) {
     franchise: { connect: { id: args.franchiseId || desiredGame.franchiseId }}
   }
   
-  await context.prisma.game.update({
+  return await context.prisma.game.update({
     where: { id: parseInt(args.id) },
     data: _.omit(updatedGame, 'id')  
   })
 
-  return updatedGame
 }
 
 async function deleteGame(parent, args, context, info) {
@@ -105,14 +104,19 @@ async function updateFranchise(parent, args, context, info) {
     company: { connect: { id: args.companyId || desiredFranchise.companyId }}
   }
 
-  console.log('hogwash', updatedFranchise)
-
   return await context.prisma.franchise.update({
     where: { id: parseInt(args.id) },
     data: _.omit(updatedFranchise, 'id')  
-  })
+  })  
+}
 
-   
+async function deleteFranchise(parent, args, context, info) {
+  await context.prisma.franchise.delete({
+    where: { id: Number(args.id) }
+  })
+  
+  let franchises = await context.prisma.franchise.findMany()
+  return franchises
 }
 
 async function addCompany(parent, args, context, info) {
@@ -127,26 +131,42 @@ async function addCompany(parent, args, context, info) {
   return newCompany
 }
 
-  // const newGame = context.prisma.game.create({
-  //   data: {
-  //     name: args.name,
-  //     franchise: { connect: { id: args.franchiseId }},
-  //     image: args.image,
-  //     description: args.description,
-  //     releaseYear: args.releaseYear
-  //   }
-  // })
+async function updateCompany(parent, args, context, info) {
+  const desiredCompany = await context.prisma.company.findOne({where: { id: Number(args.id) }})
+  let updatedCompany = {
+    id: args.id,
+    name: args.name || desiredCompany.name,
+    description: args.description || desiredCompany.description,
+    foundingYear: args.foundingYear || desiredCompany.foundingYear
+  }
 
-  // return newGame
+  return await context.prisma.company.update({
+    where: { id: parseInt(args.id) },
+    data: _.omit(updatedCompany, 'id')  
+  })  
+}
+
+async function deleteCompany(parent, args, context, info) {
+   await context.prisma.company.delete({
+    where: { id: Number(args.id) }
+  })
+  
+  let companies = await context.prisma.company.findMany()
+  return companies
+}
+
 
 module.exports = {
   addCompany,
   addFighter,
   addFranchise,
   addGame,
+  updateCompany,
   updateFighter,
   updateFranchise,
   updateGame,
+  deleteCompany,
   deleteFighter,
+  deleteFranchise,
   deleteGame
 }

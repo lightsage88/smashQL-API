@@ -17,6 +17,8 @@ type Mutation {
   updateFranchise(id: Int!, name: String, image: String, companyId: Int, fighterIDs: [Int], game: [Int]): franchise!
   deleteFranchise(id:ID!): [franchise!]!
   addCompany(name: String!, foundingYear: Int, description: String): company
+  updateCompany(id: ID!, name: String, foundingYear: Int, description: String): company
+  deleteCompany(id: ID!):[company!]!
 }
 
 
