@@ -11,7 +11,6 @@ function games(parent, args, context, info) {
 }
 
 function company(parent, args, context, info) {
-  console.log(parent, args)
   return context.prisma.company.findOne({where: { id: parent.companyId }})
 }
 

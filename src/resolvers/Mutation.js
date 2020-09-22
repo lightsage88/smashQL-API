@@ -15,7 +15,6 @@ function addFighter(parent, args, context, info) {
 
 async function updateFighter(parent, args, context, info) {
   let roster = await context.prisma.fighter.findMany()
-  console.log(roster)
   let desiredFighter = await context.prisma.fighter.findOne({where: { id: Number(args.id) }})
   const updatedFighter = {
     id: args.id,
@@ -89,6 +88,7 @@ async function addFranchise(parent, args, context, info) {
       name: args.name,
       image: args.image,
       company: { connect: { id: args.companyId }},
+      wikiID: args.wikiID
     }
   })
 
@@ -101,7 +101,8 @@ async function updateFranchise(parent, args, context, info) {
     id: args.id,
     name: args.name || desiredFranchise.name,
     image: args.image || desiredFranchise.image,
-    company: { connect: { id: args.companyId || desiredFranchise.companyId }}
+    company: { connect: { id: args.companyId || desiredFranchise.companyId }},
+    wikiID: args.wikiID || desiredFranchise.wikiID
   }
 
   return await context.prisma.franchise.update({
@@ -124,7 +125,8 @@ async function addCompany(parent, args, context, info) {
     data: {
       name: args.name,
       foundingYear: args.foundingYear,
-      description: args.description
+      description: args.description,
+      wikiID: args.wikiID
     }
   })
 
@@ -137,7 +139,8 @@ async function updateCompany(parent, args, context, info) {
     id: args.id,
     name: args.name || desiredCompany.name,
     description: args.description || desiredCompany.description,
-    foundingYear: args.foundingYear || desiredCompany.foundingYear
+    foundingYear: args.foundingYear || desiredCompany.foundingYear,
+    wikiID: args.wikiID || desiredCompany.wikiID
   }
 
   return await context.prisma.company.update({

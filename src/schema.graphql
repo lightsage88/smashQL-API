@@ -3,6 +3,8 @@ type Query {
   companies: [company!]!
   gameCollection: [game!]!
   franchiseList: [franchise!]!
+  oneFranchise(id:ID!): franchise!
+  oneCompany(id:ID!): company!
 }
 
 type Mutation {
@@ -12,13 +14,13 @@ type Mutation {
   addGame(name: String!, franchiseId: Int, releaseYear: Int, description: String): game!
   updateGame(id: ID!, name: String, franchiseId: Int, releaseYear: Int): game!
   deleteGame(id: ID!): [game!]!
-  addFranchise(name: String!, image: String, companyId: Int, fighterIDs: [Int], gameIDs: [Int]): franchise!
+  addFranchise(name: String!, wikiID: String, image: String, companyId: Int, fighterIDs: [Int], gameIDs: [Int]): franchise!
 
-  updateFranchise(id: Int!, name: String, image: String, companyId: Int, fighterIDs: [Int], game: [Int]): franchise!
+  updateFranchise(id: Int!, wikiID: String, name: String, image: String, companyId: Int, fighterIDs: [Int], game: [Int]): franchise!
   deleteFranchise(id:ID!): [franchise!]!
-  addCompany(name: String!, foundingYear: Int, description: String): company
-  updateCompany(id: ID!, name: String, foundingYear: Int, description: String): company
-  deleteCompany(id: ID!):[company!]!
+  addCompany(name: String!, wikiID: String, foundingYear: Int, description: String): company
+  updateCompany(id: ID!, wikiID: Int, name: String, foundingYear: Int, description: String): company
+  deleteCompany(id: ID!):[company!]! 
 }
 
 
@@ -37,6 +39,7 @@ type franchise {
   company: company
   fighters: [fighter!]
   games: [game!]
+  wikiID: String
 }
 
 type game {
@@ -54,4 +57,5 @@ type company {
   description: String
   foundingYear: Int
   franchises: [franchise!]
+  wikiID: String
 }

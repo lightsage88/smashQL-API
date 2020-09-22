@@ -12,6 +12,7 @@ model company {
   name         String?
   description  String?
   foundingYear Int
+  wikiID       String?
   franchise    franchise[]
 }
 
@@ -21,6 +22,7 @@ model fighter {
   description String?
   image       String?
   franchiseId Int?
+  isHero      Boolean
   franchise   franchise? @relation(fields: [franchiseId], references: [id])
 
   @@index([franchiseId], name: "franchiseId")
@@ -31,6 +33,7 @@ model franchise {
   name      String?
   image     String?
   companyId Int
+  wikiID    String?
   company   company   @relation(fields: [companyId], references: [id])
   fighter   fighter[]
   game      game[]

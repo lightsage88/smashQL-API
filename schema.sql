@@ -5,6 +5,7 @@ CREATE TABLE Fighter (
   image     TEXT,
   franchiseId  INTEGER,
   FOREIGN KEY (franchiseId) REFERENCES Franchise(id)
+  isHero    Boolean
 );
 
 
@@ -15,6 +16,7 @@ CREATE TABLE Franchise (
   image     TEXT,
   companyId INTEGER NOT NULL,
   FOREIGN KEY (companyId) REFERENCES Company(id)
+  wikiID    VARCHAR(255)
 );
 
 CREATE TABLE Game (
