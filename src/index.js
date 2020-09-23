@@ -110,45 +110,6 @@ const main = async () => {
   console.log(result)
 }
 
-// /////GraphQL Schema
-
-// ////TypeDefs
-// const typeDefs = `
-//   type Query {
-//     info: String!
-//     roster: [fighter!]!
-//   }
-
-//   type fighter {
-//     id: ID!
-//     description: String!
-//     name: String!
-//   }
-// `
-
-
-// /// MUTATIONs
-
-
-// //Resolvers
-// const resolvers = {
-//   Query: {
-//     info: () => `Solpocho`,
-//     roster: () => ['Mario']
-//   }
-
-
-// }
-
-
-// main()
-//   .catch(e => {
-//     throw e
-//   })
-//   .finally(async () => {
-//     await prisma.$disconnect()
-//   })
-
 const resolvers = {
   Query,
   Mutation,
@@ -164,22 +125,44 @@ const options = {
 }
 
 
-const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
-  resolvers,
-  context: request => {
-    return {
-      ...request,
-      prisma
+// const server = new GraphQLServer({
+//   typeDefs: './src/schema.graphql',
+//   resolvers,
+//   context: request => {
+//     return {
+//       ...request,
+//       prisma
+//     }
+//   }
+// })
+
+// server.start(options, ({ port }) =>
+//   console.log(
+//     `Server started, listening on port ${port} for incoming requests.`,
+//   ),
+// )
+
+
+const startServer = async () => {
+
+  const server = new GraphQLServer({
+    typeDefs: './src/schema.graphql',
+    resolvers,
+    context: request => {
+      return {
+        ...request,
+        prisma
+      }
     }
-  }
-})
+  })
 
-server.start(options, ({ port }) =>
-  console.log(
-    `Server started, listening on port ${port} for incoming requests.`,
-  ),
-)
+  const app = await server.start({
+    port: process.env.NODE_ENV === "test" ? 0 : 4000
+  })
+  
+  return app
+}
 
+startServer()
 
-// server.start( () => console.log(`Server is running on http://localhost:4000`))
+module.exports = { startServer }
