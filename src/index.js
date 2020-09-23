@@ -143,7 +143,7 @@ const options = {
 // )
 
 
-const startServer = async () => {
+// const startServer = async () => {
 
   const server = new GraphQLServer({
     typeDefs: './src/schema.graphql',
@@ -156,13 +156,15 @@ const startServer = async () => {
     }
   })
 
-  const app = await server.start({
-    port: process.env.NODE_ENV === "test" ? 0 : 4000
-  })
+//   const app = await server.start({
+//     port: process.env.NODE_ENV === "test" ? 0 : 4000
+//   })
   
-  return app
-}
+//   return app
+// }
 
-startServer()
-
-module.exports = { startServer }
+server.start(options, ({ port }) => {
+  console.log(
+    `Server started, listening on port ${port} for incoming requests`
+  )
+})
