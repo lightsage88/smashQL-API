@@ -5,7 +5,7 @@ deploy:
   provider: heroku
   api_key:
     secure: OV6Zw1MX/hAXfG1Hb30eIimWSo2xALDCgyZ2tGzwQnNCO5b/jPd4aRwt1aFSy0QlDWZ0AFe/crnEPW/nneCjyb/IPT008vK8wOmbY+iEAYm/dyvTusWQYZZ5Jwe0kAlGSzIsUPIz1+d6i3HxIuDGs47tB5Ps8ZRacSd81ZIN76QPKEdy0MlUFbcZZrGY4DOrT4WSDU4ywDSAXsv1W/ZeyYbDjXKulGkpAMZT1mhl9pMu3CrQqi4o+13/vdYF742s9Ch+0Sg0pyFCx5ugFtNhTxf5msKu2OHbM5Wu0LmPpuPYILEb1DwdRmDvy5kDR4rIIPfbQotdIrDXArW3zHh6ch1D7ocKQKO5Mq+frTWhIajY3BGCz5wIsJ3G7ivJE/GuJOGq8dURVDTzfBgiAVgZYZf0b2cy0abqcRXLdcjpTeKgHDXUIOqSx2zIx+82ehoV4l4rdgGowc8QtEX4qB+oDTNaU0PS2f/K8JwYRiWzHZn9dajlI6v8nRnIUpUsxe+aH7cQZHAcuYaJeUmyMNkJCU6f9GMtEvEUcxsBHaywRnn3ab4Z+ZuuSiSev5st8DAbErM3JvHzStGggrEeLKa6GlYK6DTthJjFaICvqWpU9cyhJzfW0teQt2T7J3STULRU492lSfY8utSrhZzrjbkTaqGxU+8fxxTfIXoWRGJtowg=
-  app: smashQL-API
+  app: thawing-depths-55365
   on:
     repo: lightsage88/smashQL-API
   skip_cleanup: 'true'
